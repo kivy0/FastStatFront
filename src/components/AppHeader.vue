@@ -4,7 +4,7 @@
       <n-image
         class="header-logo"
         width="200"
-        src="https://stat.22edu.ru/static/images/logo.jpg"
+        src="vpr.png"
         alt="Logo"
         preview-disabled
       />
@@ -18,6 +18,7 @@
       </div>
       <ThemeSwitcher />
     </div>
+  <n-divider />
   </n-page-header>
 </template>
 
@@ -25,6 +26,7 @@
 import { defineComponent } from "vue";
 import { NPageHeader, NImage } from 'naive-ui';
 import ThemeSwitcher from './ThemeSwitcher.vue';
+
 
 export default defineComponent({
   components: {
@@ -39,8 +41,7 @@ export default defineComponent({
 .header-container {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #f0f0f0;
-  background-color: #FFFFFF;
+  //border-bottom: 1px solid #f0f0f0;
 }
 
 .header-logo {
@@ -51,5 +52,8 @@ export default defineComponent({
 .header-title {
   display: flex;
   flex-direction: column;
+}
+.n-divider {
+  margin: 0;
 }
 </style>

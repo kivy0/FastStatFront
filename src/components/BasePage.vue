@@ -1,4 +1,5 @@
 <template>
+    <n-layout>
     <div class="app-container">
       <AppHeader />
       <div class="grid">
@@ -11,6 +12,7 @@
       </div>
       <AppFooter />
     </div>
+   </n-layout>
 </template>
 
 <script>
@@ -42,9 +44,8 @@ export default defineComponent({
 }
 
 .menu {
-  top: 0;
+  flex-grow: 1;
   width: 240px;
-  border-right: 1px solid #f0f0f0;
 }
 
 .content {

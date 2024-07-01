@@ -1,10 +1,11 @@
 <template>
+  <n-divider />
     <div class="footer-container">
       <div class="footer-content">
         <n-image
           class="footer-logo"
           width="200"
-          src="https://stat.22edu.ru/static/images/logo.jpg"
+          src="vpr.png"
           alt="Logo"
           preview-disabled
         />
@@ -14,7 +15,7 @@
         <n-image
           class="footer-logo"
           width="200"
-          src="https://indexmap.22edu.ru/static/images/aictioko.jpg"
+          src="/aictioko.png"
           alt="Logo"
           preview-disabled
         />
@@ -28,7 +29,7 @@ import { NImage } from 'naive-ui';
 
 export default defineComponent({
   components: {
-    NImage
+    NImage,
   }
 });
 </script>
@@ -38,8 +39,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #f0f0f0;
-  background-color: #FFFFFF;
+  //Border-top: 1px solid #f0f0f0;
 }
 
 .footer-content {
@@ -55,5 +55,8 @@ export default defineComponent({
 
 .footer-text {
   text-align: center;
+}
+.n-divider {
+  margin: 0;
 }
 </style>

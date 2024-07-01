@@ -1,5 +1,3 @@
-/* eslint-disable vue/no-unused-components */
-
 <template>
   <div class="sidebar">
       <n-menu :options="menuOptions" @update:value="handleUpdateValue" />

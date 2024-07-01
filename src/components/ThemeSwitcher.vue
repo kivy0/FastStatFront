@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed} from "vue";
+import { defineComponent, inject, computed } from 'vue';
 import { NButton, NIcon } from 'naive-ui';
-import { darkTheme, lightTheme } from 'naive-ui'
 import { MoonOutline as MoonIcon, SunnyOutline as SunIcon } from "@vicons/ionicons5";
+
 export default defineComponent({
   components: {
     NButton,
@@ -21,19 +21,14 @@ export default defineComponent({
     SunIcon
   },
   setup() {
-    const isDark = ref(false)
-    const themeIcon = computed(() => isDark.value ? SunIcon : MoonIcon)
-
-    const switchTheme = () => {
-      isDark.value = !isDark.value
-    }
+    const isDark = inject('isDark');
+    const switchTheme = inject('switchTheme');
+    const themeIcon = computed(() => (isDark.value ? SunIcon : MoonIcon));
 
     return {
-      isDark,
       themeIcon,
-      switchTheme,
-      theme: computed(() => (isDark.value ? darkTheme : lightTheme))
-    }
+      switchTheme
+    };
   }
 });
 </script>
