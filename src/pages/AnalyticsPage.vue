@@ -1,10 +1,6 @@
 <template>
     <BasePage>
      <StaticBlocks />
-<StaticBlocks />
-<StaticBlocks />
-<StaticBlocks />
-<StaticBlocks />
      <ChartsBlock />
     </BasePage>
 </template>

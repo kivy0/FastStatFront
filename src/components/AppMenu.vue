@@ -1,18 +1,23 @@
 <template>
   <div class="sidebar">
-      <n-menu :options="menuOptions" @update:value="handleUpdateValue" />
+    <n-menu :options="menuOptions" @update:value="handleUpdateValue" />
+    <n-modal v-model:show="showLoginForm">
+      <LoginForm @close="showLoginForm = false" />
+    </n-modal>
   </div>
 </template>
 
 <script>
-import { defineComponent, h } from "vue";
+import { defineComponent, h , ref} from "vue";
 import { NIcon } from "naive-ui";
 import { useRouter } from 'vue-router';
+import LoginForm from './LoginForm';
 import {
   BookOutline as BookIcon,
   HomeOutline as HomeIcon,
   AnalyticsOutline as AnalyticsIcon,
-  MapOutline as MapIcon
+  MapOutline as MapIcon,
+  LogInOutline as LoginIcon
 } from "@vicons/ionicons5";
 
 function renderIcon(icon) {
@@ -20,39 +25,55 @@ function renderIcon(icon) {
 }
 
 const menuOptions = [
+{
+    label: "Авторизация",
+    key: "button-login",
+    icon: renderIcon(LoginIcon),
+    action: "login",
+  },
+  {
+    type: 'divider',
+  },
   {
     label: "Главная",
-    key: "button-1",
+    key: "button-home",
     icon: renderIcon(HomeIcon),
     link: { name: 'MainPage' }
   },
   {
     label: "Аналитика",
-    key: "button-2",
+    key: "button-analytics",
     icon: renderIcon(AnalyticsIcon),
     link: { name: 'AnalyticsPage' }
   },
   {
     label: "Описание заданий",
-    key: "button-3",
+    key: "button-description",
     icon: renderIcon(BookIcon),
     link: { name: 'TaskInfoPage' }
   },
   {
     label: "Интерактивная карта",
-    key: "button-4",
+    key: "button-map",
     icon: renderIcon(MapIcon),
     link: 'https://educationmap.22edu.ru/'
   },
 ];
 
 export default defineComponent({
+  components: {
+    LoginForm
+  },
   setup() {
     const router = useRouter();
+    const showLoginForm = ref(false);
     return {
       menuOptions,
+      showLoginForm,
       handleUpdateValue(key, item) {
-        if (typeof item.link === 'string') {
+        if (item.action === 'login') {
+          showLoginForm.value = true;
+        } else if (typeof item.link === 'string') {
           window.location.href = item.link;
         } else {
           router.push(item.link);
@@ -61,7 +82,6 @@ export default defineComponent({
     };
   }
 });
-
 </script>
 
 <style scoped>

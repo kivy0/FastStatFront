@@ -56,5 +56,5 @@ export default {
   font-size: 20px;
   font-weight: bold;
 }
-
+.n-card{align-items: center;  text-align: center;}
 </style>

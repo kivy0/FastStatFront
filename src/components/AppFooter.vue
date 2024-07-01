@@ -2,23 +2,28 @@
   <n-divider />
     <div class="footer-container">
       <div class="footer-content">
-        <n-image
-          class="footer-logo"
-          width="200"
-          src="vpr.png"
-          alt="Logo"
-          preview-disabled
-        />
+        <a href="http://vpr22.22edu.ru/">
+          <n-image
+            class="header-logo"
+            width="200"
+            src="vpr.png"
+            alt="Logo"
+            preview-disabled
+          />
+      </a>
         <div class="footer-text">
           2024 © КАУ ДПО АИЦТиОКО имени О.Р. Львова
         </div>
-        <n-image
-          class="footer-logo"
-          width="200"
-          src="/aictioko.png"
-          alt="Logo"
-          preview-disabled
-        />
+        <a href="https://aictioko.ru/">
+          <n-image
+            class="footer-logo"
+            width="200"
+            src="/aictioko.png"
+            alt="Logo"
+            preview-disabled
+          />
+        </a>
+
       </div>
     </div>
 </template>
@@ -39,7 +44,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  //Border-top: 1px solid #f0f0f0;
 }
 
 .footer-content {

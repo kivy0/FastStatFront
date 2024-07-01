@@ -1,42 +1,40 @@
 <template>
-  <div ref="plotlyChart"></div>
+   <n-card size='small' title="Количество образовательных организаций по типу расположения, принявших участие в ВПР">
+  <Pie
+    id="my-chart-id"
+    :options="chartOptions"
+    :data="chartData"
+  />
+</n-card>
 </template>
 
 <script>
-import Plotly from 'plotly.js'
+import { Pie } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale)
 
 export default {
+  name: 'PieChart',
+  components: { Pie },
   data() {
     return {
-      schoolTypes: ['Сельские', 'Городские'],
-      schoolCounts: [470, 172],
-      currentTheme: 'darkTheme'
-    }
-  },
-  mounted() {
-    const data = [{
-      values: this.schoolCounts,
-      labels: this.schoolTypes,
-      type: 'pie',
-    }]
-
-    const layout = {
-      title: {
-        text: 'Количество образовательных организаций<br> по типу расположения, принявших участие в ВПР',
-        font: {
-          color: this.currentTheme === 'darkTheme' ? '#FFFFFF' : '#000000' // Цвет текста заголовка
-        }
+      chartData: {
+        labels: ['Сельские', 'Городские'],
+        datasets: [{
+          data: [470, 172],
+          backgroundColor: ['#7efc87', '#929c93']
+        }]
       },
-      plot_bgcolor: this.currentTheme === 'darkTheme' ? '#18181C' : '#FFFFFF', // Цвет фона графика
-      paper_bgcolor: this.currentTheme === 'darkTheme' ? '#18181C' : '#FFFFFF', // Цвет фона вокруг графика
-      legend: {
-        font: {
-          color: this.currentTheme === 'darkTheme' ? '#FFFFFF' : '#000000' // Цвет текста в легенде
-        }
+      chartOptions: {
+        responsive: true,
       }
     }
-
-    Plotly.newPlot(this.$refs.plotlyChart, data, layout)
   }
 }
 </script>
+<style scoped>
+.n-card {
+  text-align: center;
+}
+</style>

@@ -1,31 +1,36 @@
 <template>
-  <div ref="plotlyChart"></div>
+  <n-card size='small' title="Количество учащихся, участвующих в перепроверке">
+    <Bar
+      id="my-chart-id"
+      :options="chartOptions"
+      :data="chartData"
+    />
+  </n-card>
 </template>
 
 <script>
-import Plotly from 'plotly.js'
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
+  name: 'BarChart',
+  components: { Bar },
   data() {
     return {
-      classes: ['4', '5'],
-      students: [632, 722]
+      chartData: {
+        labels: ['4', '5'],
+        datasets: [{
+          label: 'Количество учеников',
+          data: [632, 722],
+          backgroundColor: ['#7efc87', '#929c93']
+        }]
+      },
+      chartOptions: {
+        responsive: true,
+      }
     }
-  },
-  mounted() {
-    const data = [{
-      x: this.classes,
-      y: this.students,
-      type: 'bar'
-    }]
-
-    const layout = {
-      title: 'Количество учащихся, принявших участие в ВПР',
-      xaxis: { title: 'Класс' },
-      yaxis: { title: 'Количество учеников' }
-    }
-
-    Plotly.newPlot(this.$refs.plotlyChart, data, layout)
   }
 }
 </script>

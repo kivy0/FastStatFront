@@ -1,13 +1,15 @@
 <template>
   <n-page-header>
     <div class="header-container">
-      <n-image
-        class="header-logo"
-        width="200"
-        src="vpr.png"
-        alt="Logo"
-        preview-disabled
-      />
+      <a href="http://vpr22.22edu.ru/">
+        <n-image
+          class="header-logo"
+          width="200"
+          src="vpr.png"
+          alt="Logo"
+          preview-disabled
+        />
+      </a>
       <div class="header-title">
         <div style="color: #00158f; font-size: 24px;">
           Система аналитики Всероссийских проверочных работ в Алтайском крае
@@ -41,7 +43,6 @@ export default defineComponent({
 .header-container {
   display: flex;
   align-items: center;
-  //border-bottom: 1px solid #f0f0f0;
 }
 
 .header-logo {

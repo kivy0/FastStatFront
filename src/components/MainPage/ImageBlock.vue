@@ -1,8 +1,6 @@
 <template>
   <n-card>
-    <template #cover>
-      <img src="/4530322.png" />
-    </template>
+    <n-image src="/4530322.png" object-fit='fill' preview-disabled=true />
   </n-card>
 </template>
 
@@ -14,9 +12,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-.n-card {
-  max-width: 600px;
-}
+.n-card{align-items: center;}
 </style>
