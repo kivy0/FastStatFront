@@ -50,7 +50,7 @@
       </template>
       Загрузить
     </n-button>
-    <n-button size="large" tertiary type="success">
+    <n-button size="large" tertiary type="success" @click="changeIsShowTable">
       <template #icon>
         <n-icon>
           <EyeIcon />
@@ -94,7 +94,12 @@ export default defineComponent({
     DocumentIcon,
     h,
   },
-  setup() {
+  setup(props, { emit }) {
+
+
+const  changeIsShowTable = () => {
+  emit('change')
+}
 
     const renderLabel = (option) => {
       return [
@@ -165,6 +170,7 @@ export default defineComponent({
     ]);
 
     const resetAll = () => {
+      changeIsShowTable()
       console.log("Resetting all selectors");
       selectDataList.value.forEach((item, index) => {
         item.selected = [];
@@ -270,7 +276,8 @@ export default defineComponent({
       selectDataList,
       renderLabel,
       handleSelectionChange,
-      resetAll
+      resetAll,
+      changeIsShowTable
     }
   }
 });
