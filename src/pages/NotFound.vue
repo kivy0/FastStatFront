@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import router from "@/router";
+
+const goHome = () => {
+	router.push('/')
+}
+</script>
+
 <template>
   <n-space vertical align="center" justify="center" style="height: 100vh;">
     <n-alert type="error" title="404 Not Found" />
@@ -5,15 +13,4 @@
   </n-space>
 </template>
 
-<script>
-export default {
-  methods: {
-    goHome() {
-      this.$router.push('/');
-    },
-  },
-};
-</script>
 
-<style scoped>
-</style>

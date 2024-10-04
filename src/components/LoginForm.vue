@@ -19,7 +19,7 @@
 <script>
 import { ref } from 'vue';
 import { useMessage } from 'naive-ui';
-import { authUser } from '../auth_api';
+import { authUser } from '../auth_api.js';
 
 export default {
   props: {

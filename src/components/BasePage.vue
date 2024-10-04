@@ -8,26 +8,13 @@
           <slot></slot>
         </div>
       </div>
-      <AppFooter />
+	    <AppFooter />
     </div>
    </n-layout>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import AppHeader from './AppHeader.vue'
-import AppFooter from './AppFooter.vue'
-import AppMenu from './AppMenu.vue'
+<script setup lang="ts">
 
-export default defineComponent({
-  components: {
-    AppHeader,
-    AppFooter,
-    AppMenu
-  },
-  setup() {
-  }
-})
 </script>
 
 <style scoped>

@@ -1,46 +1,36 @@
-<template>
- <n-config-provider :theme="theme">
-  <n-loading-bar-provider>
-   <n-message-provider :max="3">
-    <n-notification-provider>
-     <n-modal-provider>
-      <n-dialog-provider>
-       <router-view />
-      </n-dialog-provider>
-     </n-modal-provider>
-    </n-notification-provider>
-   </n-message-provider>
-  </n-loading-bar-provider>
- </n-config-provider>
-</template>
-
-<script>
-import { defineComponent, ref, computed, provide } from 'vue';
+<script setup lang="ts">
+import { ref, computed, provide } from 'vue';
 import { NConfigProvider, NMessageProvider } from 'naive-ui';
 import { darkTheme, lightTheme } from 'naive-ui';
 
-export default defineComponent({
-  components: {
-    NConfigProvider,
-    NMessageProvider,
-  },
-  setup() {
-    const isDark = ref(false);
-    const theme = computed(() => (isDark.value ? darkTheme : lightTheme));
 
-    const switchTheme = () => {
-      isDark.value = !isDark.value;
-    };
+const isDark = ref(false);
+const theme = computed(() => (isDark.value ? darkTheme : lightTheme));
 
-    provide('isDark', isDark);
-    provide('theme', theme);
-    provide('switchTheme', switchTheme);
+const switchTheme = () => {
+	isDark.value = !isDark.value;
+};
 
-    return {
-      isDark,
-      theme,
-      switchTheme
-    };
-  }
-});
+provide('isDark', isDark);
+provide('theme', theme);
+provide('switchTheme', switchTheme);
+
 </script>
+
+
+
+<template>
+	<n-config-provider :theme="theme">
+		<n-loading-bar-provider>
+			<n-message-provider :max="3">
+				<n-notification-provider>
+					<n-modal-provider>
+						<n-dialog-provider>
+							<router-view />
+						</n-dialog-provider>
+					</n-modal-provider>
+				</n-notification-provider>
+			</n-message-provider>
+		</n-loading-bar-provider>
+	</n-config-provider>
+</template>

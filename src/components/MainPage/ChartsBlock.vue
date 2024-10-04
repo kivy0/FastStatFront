@@ -15,20 +15,11 @@
   </n-grid>
 </template>
 
-<script>
+<script setup lang="ts">
 import { NGrid, NGridItem } from 'naive-ui'
 import ClassDistributionChart from './ClassDistributionChart.vue'
 import VillageCityChart from './VillageCityChart.vue'
 
-export default {
-  components: {
-    NGrid,
-    NGridItem,
-
-    ClassDistributionChart,
-    VillageCityChart
-  }
-}
 </script>
 
 <style scoped>

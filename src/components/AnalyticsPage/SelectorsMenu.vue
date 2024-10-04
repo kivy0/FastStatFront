@@ -74,7 +74,7 @@
 
 import { defineComponent, ref, h } from 'vue';
 import { NSelect, NH1, NButton, NIcon, NFlex } from 'naive-ui';
-import { get_years, get_municipalities, get_educational_organizations, get_grades, get_subjects } from '../../stat_api';
+import { get_years, get_educational_organizations, get_grades, get_subjects } from '@/stat_api.ts';
 import { Refresh as ResetIcon, DownloadOutline as DownloadIcon,
          EyeOutline as EyeIcon, BarChartOutline as BarIcon,
          PieChartOutline as PieIcon, DocumentOutline as DocumentIcon} from "@vicons/ionicons5";
@@ -173,7 +173,7 @@ export default defineComponent({
           item.options = [];
         }
       });
-    }; 
+    };
 
     const fetchYears = async () => {
       selectDataList.value[1].options = await get_years();
@@ -294,12 +294,12 @@ export default defineComponent({
   width: 300px;
 }
 .selector-row {
-  margin-bottom: 16px; 
-  width: 100%; 
-  max-width: 1000px; 
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 1000px;
 }
 .selector-wrapper {
-  flex: 0.6; 
+  flex: 0.6;
 }
 .selector {
   width: 400px;

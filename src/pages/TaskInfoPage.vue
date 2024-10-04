@@ -77,21 +77,13 @@
     </BasePage>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import BasePage from '../components/BasePage.vue'
+<script setup lang="ts">
+import BasePage from '@/components/BasePage.vue'
 import { NCard } from 'naive-ui'
-import MainPageImageBlock from '../components/MainPage/ImageBlock.vue'
+import MainPageImageBlock from '@/components/MainPage/ImageBlock.vue'
+import router from "@/router";
 
-export default defineComponent({
-  components: {
-    BasePage,
-    NCard,
-    MainPageImageBlock
-  },
-  setup() {
-  }
-})
+router.push({ name: 'TaskInfoPage' })
 </script>
 
 

@@ -30,17 +30,9 @@
   </n-grid>
 </template>
 
-<script>
+<script setup lang="ts">
 import { NGrid, NGridItem, NCard } from 'naive-ui'
 import MainPageImageBlock from './ImageBlock.vue'
-export default {
-  components: {
-    NGrid,
-    NGridItem,
-    NCard,
-    MainPageImageBlock
-  }
-}
 </script>
 
 <style scoped>

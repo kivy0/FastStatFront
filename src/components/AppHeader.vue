@@ -24,19 +24,11 @@
   </n-page-header>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import { NPageHeader, NImage } from 'naive-ui';
 import ThemeSwitcher from './ThemeSwitcher.vue';
 
 
-export default defineComponent({
-  components: {
-    NPageHeader,
-    NImage,
-    ThemeSwitcher
-  }
-});
 </script>
 
 <style scoped>
