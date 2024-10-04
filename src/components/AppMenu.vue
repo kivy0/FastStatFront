@@ -1,31 +1,33 @@
 <template>
-    <div class="menu">
-      <n-menu :options="menuOptions" @update:value="handleUpdateValue" />
-    </div>
-    <n-modal v-model:show="showLoginForm">
-      <LoginForm @close="showLoginForm = false" />
-    </n-modal>
+  <div class="menu">
+    <n-menu :options="menuOptions" @update:value="handleUpdateValue" />
+  </div>
+  <n-modal v-model:show="showLoginForm">
+    <LoginForm @close="handleLoginSuccess" />
+  </n-modal>
 </template>
 
 <script>
-import { defineComponent, h , ref} from "vue";
+import { defineComponent, h, ref, onMounted } from "vue";
 import { NIcon } from "naive-ui";
 import { useRouter } from 'vue-router';
 import LoginForm from './LoginForm';
+import { getCurrentUser, logoutUser } from '../auth_api';
 import {
   BookOutline as BookIcon,
   HomeOutline as HomeIcon,
   AnalyticsOutline as AnalyticsIcon,
   MapOutline as MapIcon,
-  LogInOutline as LoginIcon
+  LogInOutline as LoginIcon,
+  LogOutOutline as LogoutIcon
 } from "@vicons/ionicons5";
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
-const menuOptions = [
-{
+const menuOptions = ref([
+  {
     label: "Авторизация",
     key: "button-login",
     icon: renderIcon(LoginIcon),
@@ -50,7 +52,8 @@ const menuOptions = [
     label: "Описание заданий",
     key: "button-description",
     icon: renderIcon(BookIcon),
-    link: { name: 'TaskInfoPage' }
+    disabled: true,
+    link: { name: 'TaskInfoPage'}
   },
   {
     label: "Интерактивная карта",
@@ -58,7 +61,7 @@ const menuOptions = [
     icon: renderIcon(MapIcon),
     link: 'https://educationmap.22edu.ru/'
   },
-];
+]);
 
 export default defineComponent({
   components: {
@@ -67,29 +70,80 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const showLoginForm = ref(false);
+    const currentUser = ref(null);
+
+    onMounted(async () => {
+      try {
+        const user = await getCurrentUser();
+        currentUser.value = user;
+        updateMenuOptions();
+      } catch (error) {
+        console.error('Error fetching current user:', error);
+      }
+    });
+
+    const updateMenuOptions = () => {
+      if (currentUser.value) {
+        menuOptions.value[0] = {
+          label: currentUser.value.full_name,
+          key: "button-logout",
+          icon: renderIcon(LogoutIcon),
+          action: "logout",
+        };
+      } else {
+        menuOptions.value[0] = {
+          label: "Авторизация",
+          key: "button-login",
+          icon: renderIcon(LoginIcon),
+          action: "login",
+        };
+      }
+    };
+
+    const handleLoginSuccess = async () => {
+      showLoginForm.value = false;
+      try {
+        const user = await getCurrentUser();
+        currentUser.value = user;
+        updateMenuOptions();
+      } catch (error) {
+        console.error('Error fetching current user:', error);
+      }
+    };
+
+    const handleUpdateValue = async (key, item) => {
+      if (item.action === 'login') {
+        showLoginForm.value = true;
+      } else if (item.action === 'logout') {
+        try {
+          await logoutUser();
+          currentUser.value = null;
+          updateMenuOptions();
+        } catch (error) {
+          console.error('Error during logout:', error);
+        }
+      } else if (typeof item.link === 'string') {
+        window.location.href = item.link;
+      } else {
+        router.push(item.link);
+      }
+    };
+
     return {
       menuOptions,
       showLoginForm,
-      handleUpdateValue(key, item) {
-        if (item.action === 'login') {
-          showLoginForm.value = true;
-        } else if (typeof item.link === 'string') {
-          window.location.href = item.link;
-        } else {
-          router.push(item.link);
-        }
-      }
+      handleUpdateValue,
+      handleLoginSuccess
     };
   }
 });
 </script>
 
 <style scoped>
-.menu {
-}
+
 .n-menu {
-    width: 240px;
-    position: sticky;
-    top: 0;
+  width: 240px;
+  position: sticky;
+  top: 0;
 }
 </style>

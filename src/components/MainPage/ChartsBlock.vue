@@ -32,7 +32,4 @@ export default {
 </script>
 
 <style scoped>
-.grid-item {
-  margin: 10px;
-}
 </style>

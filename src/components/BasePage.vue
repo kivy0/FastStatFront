@@ -34,16 +34,19 @@ export default defineComponent({
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Растягиваем контейнер на всю высоту окна */
+  height: 100vh;
 
 }
 
 .grid {
   display: flex;
-  /height: 100vh;
 }
 
-
 .content {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 </style>

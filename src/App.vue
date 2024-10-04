@@ -1,9 +1,17 @@
 <template>
-  <n-config-provider :theme="theme">
-    <n-message-provider>
-      <router-view />
-    </n-message-provider>
-  </n-config-provider>
+ <n-config-provider :theme="theme">
+  <n-loading-bar-provider>
+   <n-message-provider :max="3">
+    <n-notification-provider>
+     <n-modal-provider>
+      <n-dialog-provider>
+       <router-view />
+      </n-dialog-provider>
+     </n-modal-provider>
+    </n-notification-provider>
+   </n-message-provider>
+  </n-loading-bar-provider>
+ </n-config-provider>
 </template>
 
 <script>

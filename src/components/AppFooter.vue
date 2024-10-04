@@ -60,6 +60,7 @@ export default defineComponent({
 .footer-text {
   text-align: center;
 }
+
 .n-divider {
   margin: 0;
 }

@@ -45,7 +45,6 @@ export default {
 
 <style scoped>
 .grid-item {
-  margin: 10px;
 }
 
 .box {

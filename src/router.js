@@ -3,6 +3,7 @@ import MainPage from './pages/MainPage.vue'
 
 import AnalyticsPage from './pages/AnalyticsPage.vue'
 import TaskInfoPage from './pages/TaskInfoPage.vue'
+import NotFound from './pages/NotFound.vue';
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/task-info',
     name: 'TaskInfoPage',
     component: TaskInfoPage
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound,
   },
 ]
 

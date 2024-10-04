@@ -13,5 +13,8 @@ export default {
 }
 </script>
 <style scoped>
-.n-card{align-items: center;}
+.n-card{
+    align-items: center;
+    margin-bottom: 10px;
+}
 </style>
