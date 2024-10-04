@@ -16,12 +16,12 @@ function createColumns() {
     {
       title: "Группы участников",
       key: "group",
-      sorter: (a, b) => a.group.localeCompare(b.group), // Sorting by group name
+      sorter: (a, b) => a.group.localeCompare(b.group),
     },
     {
       title: "Количество участников",
       key: "participants",
-      sorter: (a, b) => a.participants - b.participants, // Sorting by participants count
+      sorter: (a, b) => a.participants - b.participants,
     },
     {
       title: "Распределение отметок в %",
@@ -30,39 +30,39 @@ function createColumns() {
         {
           title: "2",
           key: "grade2",
-          sorter: (a, b) => a.grade2 - b.grade2, // Sorting by grade 2
+          sorter: (a, b) => a.grade2 - b.grade2,
         },
         {
           title: "3",
           key: "grade3",
-          sorter: (a, b) => a.grade3 - b.grade3, // Sorting by grade 3
+          sorter: (a, b) => a.grade3 - b.grade3,
         },
         {
           title: "4",
           key: "grade4",
-          sorter: (a, b) => a.grade4 - b.grade4, // Sorting by grade 4
+          sorter: (a, b) => a.grade4 - b.grade4,
         },
         {
           title: "5",
           key: "grade5",
-          sorter: (a, b) => a.grade5 - b.grade5, // Sorting by grade 5
+          sorter: (a, b) => a.grade5 - b.grade5,
         }
       ]
     },
     {
       title: "Средняя отметка",
       key: "averageGrade",
-      sorter: (a, b) => a.averageGrade - b.averageGrade, // Sorting by average grade
+      sorter: (a, b) => a.averageGrade - b.averageGrade,
     },
     {
       title: "Качество обучения, %",
       key: "educationQuality",
-      sorter: (a, b) => a.educationQuality - b.educationQuality, // Sorting by education quality
+      sorter: (a, b) => a.educationQuality - b.educationQuality,
     },
     {
       title: "Успеваемость, %",
       key: "successRate",
-      sorter: (a, b) => a.successRate - b.successRate, // Sorting by success rate
+      sorter: (a, b) => a.successRate - b.successRate,
     }
   ]
 }
@@ -116,7 +116,7 @@ const data = [
 
 export default defineComponent({
   setup() {
-    const tableRef = ref(null); // Reference to the table
+    const tableRef = ref(null);
 
     return {
       table: tableRef,
