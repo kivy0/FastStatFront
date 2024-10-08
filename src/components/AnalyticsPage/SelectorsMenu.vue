@@ -6,6 +6,7 @@
         <span class="selector_title-label">{{ selectData.label }}</span>
         <div class="selector-wrapper">
           <n-select
+            :status="selectData.status"
             v-if="index !== 2"
             v-model:value="selectData.selected"
             :placeholder="selectData.placeholder"
@@ -21,6 +22,7 @@
           />
           <n-cascader
             v-else
+            :status="selectData.status"
             v-model:value="selectData.selected"
             :placeholder="selectData.placeholder"
             :options="selectData.options"
@@ -42,7 +44,7 @@
     </div>
   </div>
   <n-flex justify="center" align="center" class="button_container">
-    <n-button size="large" tertiary type="success">
+    <n-button size="large" tertiary type="success" @click="downloadTable" :loading="loadingDownload">
       <template #icon>
         <n-icon>
           <DownloadIcon />
@@ -50,7 +52,7 @@
       </template>
       Загрузить
     </n-button>
-    <n-button size="large" tertiary type="success" @click="changeIsShowTable">
+    <n-button size="large" tertiary type="success" @click="createTable" :loading="loadingCreate">
       <template #icon>
         <n-icon>
           <EyeIcon />
@@ -78,6 +80,8 @@ import { get_years, get_municipalities, get_educational_organizations, get_grade
 import { Refresh as ResetIcon, DownloadOutline as DownloadIcon,
          EyeOutline as EyeIcon, BarChartOutline as BarIcon,
          PieChartOutline as PieIcon, DocumentOutline as DocumentIcon} from "@vicons/ionicons5";
+import { useMessage } from 'naive-ui';
+import { get_report } from '../../stat_api';
 
 export default defineComponent({
   components: {
@@ -95,10 +99,59 @@ export default defineComponent({
     h,
   },
   setup(props, { emit }) {
+const loadingCreate = ref(false);
+const loadingDownload = ref(false);
 
+const message = useMessage();
 
-const  changeIsShowTable = () => {
-  emit('change')
+const validateSelections = () => {
+  let allSelected = true;
+  selectDataList.value.forEach((item) => {
+    if (item.selected === null || item.selected.length === 0) {
+      allSelected = false;
+      item.status = 'error'; // Устанавливаем статус ошибки
+      setTimeout(() => {
+        item.status = ''; // Сбрасываем статус через 3 секунды
+      }, 3000);
+    }
+  });
+    
+  if (!allSelected) {
+    message.error('Не выбраны все параметры!');
+  }
+  
+  return allSelected;
+}
+
+const createTable = async () => {
+  loadingCreate.value = true; // Запускаем загрузку
+  if (validateSelections()) {
+    try {
+      const selectedValues = selectDataList.value.map(item => item.selected); // Извлекаем значения selected
+      const res = await get_report(...selectedValues); 
+      changeIsShowTable(true);
+    } catch (error) {
+      console.error('Error fetching report:', error);
+    }
+  } else {
+    changeIsShowTable(false);
+  }
+  loadingCreate.value = false; // Заканчиваем загрузку
+}
+
+const downloadTable = async () => {
+  if (validateSelections()) {
+    loadingDownload.value = true;
+    const selectedValues = selectDataList.value.map(item => item.selected); // Извлекаем значения selected
+    const res = await get_report(...selectedValues); 
+    message.warning('🚧Все еще в разработке!');
+  } else {
+  }
+  loadingDownload.value = false;
+}
+
+const changeIsShowTable = (value) => {
+  emit('change', value);
 }
 
     const renderLabel = (option) => {
@@ -170,10 +223,11 @@ const  changeIsShowTable = () => {
     ]);
 
     const resetAll = () => {
-      changeIsShowTable()
-      console.log("Resetting all selectors");
+      changeIsShowTable();
       selectDataList.value.forEach((item, index) => {
-        item.selected = [];
+        if (item.selected) {
+          item.selected = item.multiple ? [] : null;
+        }
         item.disabled = index === 0 ? false : true;
         if (index === 1) {
           item.options = [];
@@ -277,7 +331,11 @@ const  changeIsShowTable = () => {
       renderLabel,
       handleSelectionChange,
       resetAll,
-      changeIsShowTable
+      changeIsShowTable,
+      createTable,
+      downloadTable,
+      loadingDownload,
+      loadingCreate
     }
   }
 });

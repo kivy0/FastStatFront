@@ -44,10 +44,10 @@ export default defineComponent({
 <template>
   <BasePage>
     <NCard class="grid-container">
-      <SelectorsMenu @change="() =>{
-        isShowTable = !isShowTable
+      <SelectorsMenu @change="(value) =>{
+        isShowTable = !!value
         } "/>
-      <TableBlock v-if='isShowTable'  />
+      <TableBlock v-if='isShowTable'/>
     </NCard>
   </BasePage>
 </template>
